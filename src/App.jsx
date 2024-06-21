@@ -1,34 +1,97 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import TriviaQuestion from './Question'
+
+const categories = [
+  "1970s",
+  "1980s",
+  "1990s",
+  "2000s",
+  "All"
+]
+
+const questions = [
+	{question: "Who was the first female justice appointed to the U.S. Supreme Court in 1981?",
+		category: "1980s", 
+		answer1: "Nancy Pelosi", 
+		answer2: "Sandra Day O'Connor", 
+		answer3: "Flip Wilson", 
+		answer4: "Sonia Sotomayor", 
+		correct: "Sandra Day O'Conner"},
+	{question: "Which popular toy line featuring small collectible figures was introduced in 1982?",
+		category: "1980s",
+		answer1: "Beanie Babies",
+		answer2: "Sour Patch Kids",
+		answer3: "Cabbage Patch Kids",
+		answer4: "Smurfs",
+		correct: "Cabbage Patch Kids"},
+	{question: "What band sang the popular song 'Sweet Child o' Mine' in 1987?",
+		category: "1980s",
+		answer1: "Guns N' Roses",
+		answer2: "AC/DC",
+		answer3: "Boston",
+		answer4: "The Beanie Babies",
+		correct: "Guns N' Roses"},
+	{question: "1970s Question One?",
+		category: "1970s",
+		answer1: "70 Answer1",
+		answer2: "70 Answer2",
+		answer3: "70 Answer3",
+		answer4: "70 Answer4",
+		correct: "70 Answer4"}
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [filteredQuestions, setFilteredQuestions] = useState(questions)
+
+  const handleClick = (category) => {
+    console.log("Clicked on " + category)
+
+    if(category === "All") {
+      setFilteredQuestions(questions)
+    } else {
+      const newQuestions = questions.filter(question => question.category === category)
+      setFilteredQuestions(newQuestions)
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='title-bar'>
+        <h1>Welcome to<br></br>Krazy Keith's Tome of Trivia!</h1>
+        <h3>Choose a Category to Answer 10 Questions:</h3>
+ 
+        <div className='nav-bar'>
+          {categories.map((category) => {
+            return (
+              <button
+                className='badge'
+                key={category} 
+                onClick={
+                  () => {handleClick(category)}
+                }>
+                  {category}
+              </button>
+            )
+          })}
+        </div>
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='content'>
+        <div className='cardsContainer'>
+
+          {filteredQuestions.map((question) => {
+            return (
+              <TriviaQuestion
+                key={question.title}
+                category={question.category}
+                title={question.title}
+                description={question.description} />
+            )
+          })}
+          
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p>I have updated this file.</p>
     </>
   )
 }

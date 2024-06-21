@@ -1,3 +1,39 @@
+html, body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 0 5px;
+  border-radius: 50px;
+  background-color: #1009cd;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.badge:hover {
+  background-color: #d4d416;
+  color: #1009cd
+}
+
+
+
+
+
+
+
+
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -35,8 +71,4 @@
 
 .card {
   padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

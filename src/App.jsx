@@ -43,6 +43,7 @@ const questions = [
 
 function App() {
   const [filteredQuestions, setFilteredQuestions] = useState(questions)
+  let currentQuestion = 0
 
   const handleClick = (category) => {
     console.log("Clicked on " + category)
@@ -58,7 +59,7 @@ function App() {
   return (
     <>
       <div className='title-bar'>
-        <h1>Welcome to<br></br>Krazy Keith's Tome of Trivia!</h1>
+        <h2>Welcome to<br></br>Krazy Keith's Tome of Trivia!</h2>
         <h3>Choose a Category to Answer 10 Questions:</h3>
  
         <div className='nav-bar'>
@@ -77,21 +78,25 @@ function App() {
         </div>
 
       </div>
-      <div className='content'>
         <div className='cardsContainer'>
 
-          {filteredQuestions.map((question) => {
-            return (
-              <TriviaQuestion
-                key={question.title}
-                category={question.category}
-                title={question.title}
-                description={question.description} />
-            )
+          {filteredQuestions.map((question, index) => {
+            if (index === currentQuestion) {
+              return (
+                <TriviaQuestion
+                  key={question.question}
+                  category={question.category}
+                  question={question.question}
+                  answer1={question.answer1}
+                  answer2={question.answer2}
+                  answer3={question.answer3}
+                  answer4={question.answer4} 
+                  correct={question.correct} />
+              )
+            }
           })}
           
         </div>
-      </div>
     </>
   )
 }

@@ -44,6 +44,7 @@ const questions = [
 function App() {
   const [filteredQuestions, setFilteredQuestions] = useState(questions)
   let currentQuestion = 0
+  let score = 0
 
   const handleClick = (category) => {
     console.log("Clicked on " + category)

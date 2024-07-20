@@ -1,41 +1,26 @@
 import { useState } from "react"
 
-
 export default function TriviaQuestion({question, category, answer1, answer2, answer3, answer4, correct}) {
 
-    let [flipped, setFlipped] = useState(false)
-    let [rightAnswer, setRightAnswer] = useState(false)
-    let answerGiven = ""
+    const [flipped, setFlipped] = useState(false)
+    const [rightAnswer, setRightAnswer] = useState(false)
     let resultComment = "You're WRONG!"
+    let score = 0
 
-    // function handleClickAnswer(answerGiven) {
-    //     alert(answerGiven)
-    // }
+    function handleClick() {
+        setFlipped(!flipped)
+        console.log("flip state is " + flipped)
+    }
 
-    // function answerButton({answerGiven, children})  {
-    //     return (
-    //         <button className="badge" onClick={() => alert(answerGiven)}>
-    //             {children}
-    //         </button>
-    //     );
-    // }
-
-
-
-    // function handleClick() {
-    //     setFlipped(!flipped)
-    //     console.log("flip state is " + flipped)
-    // }
-
-    function handleAnswerClick() {
-        setFlipped(flipped=true)
-        alert(answerGiven)
+    function answerClick(answerGiven) {
         if (answerGiven === correct) {
-            // setRightAnswer(rightAnswer=true)
+            setRightAnswer(rightAnswer=true)
             resultComment = "That's correct!"
+            score++
         } else {
             resultComment = "You're WRONG!"
         }
+        setFlipped(flipped=true)
     }
 
     return (
@@ -46,17 +31,10 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                         <div className='card'>
                             <p>{category}</p>
                             <h4>{question}</h4>
-                            <p><button onClick={()=> answerGiven = answer1} className="badge">{answer1}</button></p>
-                            <p><button onClick={()=> answerGiven = answer2} className="badge">{answer2}</button></p>
-                            <p><button onClick={()=> answerGiven = answer3} className="badge">{answer3}</button></p>
-                            <p><button onClick={()=> answerGiven = answer4} className="badge">{answer4}</button></p>
-                            
-                            <p>
-                                <button onClick={()=>console.log("Answer given is " + answerGiven)}>Answer Given</button>
-                            </p>
-                            <p>
-                                <button onClick={handleAnswerClick}>Check Your Answer</button>
-                            </p>
+                            <p><button className="badge">{answer1}</button></p>
+                            <p><button className="badge">{answer2}</button></p>
+                            <p><button className="badge">{answer3}</button></p>
+                            <p><button className="badge">{answer4}</button></p>
                         </div>
                         <div className="card-butt">
                             <button className="navBadge">Previous<br></br>Question</button>

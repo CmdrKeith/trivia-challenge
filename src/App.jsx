@@ -17,7 +17,7 @@ const questions = [
 		answer2: "Sandra Day O'Connor", 
 		answer3: "Flip Wilson", 
 		answer4: "Sonia Sotomayor", 
-		correct: "Sandra Day O'Conner"},
+		correct: "Sandra Day O'Connor"},
 	{question: "Which popular toy line featuring small collectible figures was introduced in 1982?",
 		category: "1980s",
 		answer1: "Beanie Babies",

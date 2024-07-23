@@ -5,36 +5,20 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
 
     let [flipped, setFlipped] = useState(false)
     let [rightAnswer, setRightAnswer] = useState(false)
-    let answerGiven = ""
-    let resultComment = "You're WRONG!"
-
-    // function handleClickAnswer(answerGiven) {
-    //     alert(answerGiven)
-    // }
-
-    // function answerButton({answerGiven, children})  {
-    //     return (
-    //         <button className="badge" onClick={() => alert(answerGiven)}>
-    //             {children}
-    //         </button>
-    //     );
-    // }
-
-
-
-    // function handleClick() {
-    //     setFlipped(!flipped)
-    //     console.log("flip state is " + flipped)
-    // }
+    let [answerGiven, setAnswerGiven] = useState("")
+    let [resultComment, setResultComment] = useState("")
 
     function handleAnswerClick() {
         setFlipped(flipped=true)
-        alert(answerGiven)
+        alert("Answer Given is " + answerGiven)
+        alert("Correct Answer is " + correct)
+
         if (answerGiven === correct) {
-            // setRightAnswer(rightAnswer=true)
-            resultComment = "That's correct!"
+            setResultComment(resultComment = "That's correct!")
+            alert("We are in the CORRECT answer place!")
         } else {
-            resultComment = "You're WRONG!"
+            setResultComment(resultComment = "You're WRONG!")
+            alert("We are in the WRONG answer place!")
         }
     }
 
@@ -46,10 +30,22 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                         <div className='card'>
                             <p>{category}</p>
                             <h4>{question}</h4>
-                            <p><button onClick={()=> answerGiven = answer1} className="badge">{answer1}</button></p>
-                            <p><button onClick={()=> answerGiven = answer2} className="badge">{answer2}</button></p>
-                            <p><button onClick={()=> answerGiven = answer3} className="badge">{answer3}</button></p>
-                            <p><button onClick={()=> answerGiven = answer4} className="badge">{answer4}</button></p>
+                            <p><button onClick={()=>{
+                                setAnswerGiven(answerGiven = answer1)
+                                handleAnswerClick()
+                                }} className="badge">{answer1}</button></p>
+                            <p><button onClick={()=>{
+                                setAnswerGiven(answerGiven = answer2)
+                                handleAnswerClick()
+                                }} className="badge">{answer2}</button></p>
+                            <p><button onClick={()=>{
+                                setAnswerGiven(answerGiven = answer3)
+                                handleAnswerClick()
+                                }} className="badge">{answer3}</button></p>
+                            <p><button onClick={()=>{
+                                setAnswerGiven(answerGiven = answer4)
+                                handleAnswerClick()
+                                }} className="badge">{answer4}</button></p>
                             
                             <p>
                                 <button onClick={()=>console.log("Answer given is " + answerGiven)}>Answer Given</button>
@@ -70,6 +66,7 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                         <div className="card-back">
                             <h4>{question}</h4>
                             <h3>{resultComment}</h3>
+                            <p>You said<br></br>{answerGiven}</p>
                             <p>The Answer is<br></br>{correct}</p>
                         </div>
                         <div className="card-butt-back">

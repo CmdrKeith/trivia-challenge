@@ -4,21 +4,16 @@ import { useState } from "react"
 export default function TriviaQuestion({question, category, answer1, answer2, answer3, answer4, correct}) {
 
     let [flipped, setFlipped] = useState(false)
-    let [rightAnswer, setRightAnswer] = useState(false)
     let [answerGiven, setAnswerGiven] = useState("")
     let [resultComment, setResultComment] = useState("")
 
     function handleAnswerClick() {
         setFlipped(flipped=true)
-        alert("Answer Given is " + answerGiven)
-        alert("Correct Answer is " + correct)
 
         if (answerGiven === correct) {
             setResultComment(resultComment = "That's correct!")
-            alert("We are in the CORRECT answer place!")
         } else {
             setResultComment(resultComment = "You're WRONG!")
-            alert("We are in the WRONG answer place!")
         }
     }
 
@@ -47,16 +42,6 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                                 handleAnswerClick()
                                 }} className="badge">{answer4}</button></p>
                             
-                            <p>
-                                <button onClick={()=>console.log("Answer given is " + answerGiven)}>Answer Given</button>
-                            </p>
-                            <p>
-                                <button onClick={handleAnswerClick}>Check Your Answer</button>
-                            </p>
-                        </div>
-                        <div className="card-butt">
-                            <button className="navBadge">Previous<br></br>Question</button>
-                            <button className="navBadge">Next<br></br>Question</button>
                         </div>
                     </>
 
@@ -68,11 +53,6 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                             <h3>{resultComment}</h3>
                             <p>You said<br></br>{answerGiven}</p>
                             <p>The Answer is<br></br>{correct}</p>
-                        </div>
-                        <div className="card-butt-back">
-                            <button className="navBadge">Previous<br></br>Question</button>
-                            <button className="navBadge">Review<br></br>Choices</button>
-                            <button className="navBadge">Next<br></br>Question</button>
                         </div>
                     </>
                 }

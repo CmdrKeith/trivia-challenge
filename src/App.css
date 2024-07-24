@@ -34,7 +34,6 @@ html, body{
   background-color: #03600c;
   color: #cccccc;
   border: none;
-  cursor: pointer;
   transition: background-color 0.3s;
 }
 
@@ -54,6 +53,7 @@ html, body{
   width:50%;
   background-color: aqua;
   padding: 5px 5px;
+  margin: auto;
   margin-top: 20px;
   border: thick double #1009cd;
   align-content: center;

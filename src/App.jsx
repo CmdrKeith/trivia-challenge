@@ -10,12 +10,6 @@ const categories = [
   "All"
 ]
 
-// const phases = [
-//   "Choose Category",
-//   "Answer Questions",
-//   "Show Result"
-// ]
-
 const questions = [
 	{question: "Who was the first female justice appointed to the U.S. Supreme Court in 1981?",
 		category: "1980s", 
@@ -303,7 +297,7 @@ export default function App() {
   const [filteredQuestions, setFilteredQuestions] = useState(questions)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [scoreKeeper, setScoreKeeper] = useState(0)
-  // const [currentPhase, setCurrentPhase] = useState(phase[0])
+  const [currentPhase, setCurrentPhase] = useState("Choose Category")
 
   const handleClick = (category) => {
     if(category === "All") {
@@ -313,18 +307,18 @@ export default function App() {
       setFilteredQuestions(newQuestions)
     }
     setCurrentQuestion(0)
+    setCurrentPhase("Answer Questions")
   }
 
   function handleNavForward() {
     if(currentQuestion === filteredQuestions.length - 1) {
-      console.log("Time to show results")
+      setCurrentPhase("Show Result")
     } else {
       setCurrentQuestion(currentQuestion + 1)
     }
   }
 
   function handleNavReverse() {
-    console.log(currentQuestion)
     if(currentQuestion === 0) {
       alert("This is the first question, Numb Nuts! Just answer it!")
     } else {
@@ -336,7 +330,6 @@ export default function App() {
     <>
       <div className='title-bar'>
         <h2>Welcome to<br></br>Krazy Keith's Tome of Trivia!</h2>
-        <h3>Choose a Category to Answer 10 Questions:</h3>
  
         <div className='nav-bar'>
           {categories.map((category) => {
@@ -352,36 +345,49 @@ export default function App() {
             )
           })}
         </div>
-      
 
         <div className='cardsContainer'>
-          <div>
-              {filteredQuestions.map((question, index) => {
-                if (index === currentQuestion) {
-                  return (
-                    <TriviaQuestion
-                      key={question.question}
-                      category={question.category}
-                      question={question.question}
-                      answer1={question.answer1}
-                      answer2={question.answer2}
-                      answer3={question.answer3}
-                      answer4={question.answer4} 
-                      correct={question.correct}
-                      setScoreKeeper={setScoreKeeper}
-                      scoreKeeper={scoreKeeper}
-                    />
-                  )
-                }
-              })}  
-          </div>
+          {currentPhase === "Choose Category" &&
+            <h3>Choose a Category Above to<br></br>Answer 10 Questions<br></br>
+            Or Choose 'All' to Answer All 40 Questions<br></br>
+            If You Have Nothing Better to Do.</h3>
+          }
+          {currentPhase === "Answer Questions" &&
+            <>
+              <div>
+                  {filteredQuestions.map((question, index) => {
+                    if (index === currentQuestion) {
+                      return (
+                        <TriviaQuestion
+                          key={question.question}
+                          category={question.category}
+                          question={question.question}
+                          answer1={question.answer1}
+                          answer2={question.answer2}
+                          answer3={question.answer3}
+                          answer4={question.answer4} 
+                          correct={question.correct}
+                          setScoreKeeper={setScoreKeeper}
+                          scoreKeeper={scoreKeeper}
+                        />
+                      )
+                    }
+                  })}  
+              </div>
 
-          <div className="card-butt">
-              <h4>Score ={scoreKeeper}</h4>
-              {/* <h4>Score = < KeepScore correctAnswer={false} /></h4> */}
-              <button onClick={()=>{handleNavReverse()}} className="navBadge">Previous<br></br>Question</button>
-              <button onClick={()=>{handleNavForward()}} className="navBadge">Next<br></br>Question</button>
-          </div>
+              <div className="card-butt">
+                  <h4>Score = {scoreKeeper}</h4>
+                  <button onClick={()=>{handleNavReverse()}} className="navBadge">Previous<br></br>Question</button>
+                  <button onClick={()=>{handleNavForward()}} className="navBadge">Next<br></br>Question</button>
+              </div>
+            </>
+          }
+          {currentPhase === "Show Result" &&
+            <>
+              <h3>You Made it to the End!</h3>
+              <h3>Your Score = {scoreKeeper}</h3>
+            </>
+          }
         </div>
       </div>
     </>

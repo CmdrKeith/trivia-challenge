@@ -1,19 +1,23 @@
 import { useState } from "react"
+import KeepScore from "./Score"
 
 
-export default function TriviaQuestion({question, category, answer1, answer2, answer3, answer4, correct}) {
+export default function TriviaQuestion({question, category, answer1, answer2, answer3, answer4, correct, setScoreKeeper, scoreKeeper}) {
 
-    let [flipped, setFlipped] = useState(false)
-    let [answerGiven, setAnswerGiven] = useState("")
-    let [resultComment, setResultComment] = useState("")
+    const [flipped, setFlipped] = useState(false)
+    const [answerGiven, setAnswerGiven] = useState("")
+    const [resultComment, setResultComment] = useState("")
 
-    function handleAnswerClick() {
-        setFlipped(flipped=true)
 
-        if (answerGiven === correct) {
-            setResultComment(resultComment = "That's correct!")
+    function handleAnswerClick(answerSelected) {
+        setFlipped(true)
+        setAnswerGiven(answerSelected)
+        if (answerSelected === correct) {
+            setScoreKeeper(scoreKeeper + 1)
+            // KeepScore(true)
+            setResultComment("That's correct!")
         } else {
-            setResultComment(resultComment = "You're WRONG!")
+            setResultComment("You're WRONG!")
         }
     }
 
@@ -26,20 +30,20 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                             <p>{category}</p>
                             <h4>{question}</h4>
                             <p><button onClick={()=>{
-                                setAnswerGiven(answerGiven = answer1)
-                                handleAnswerClick()
+                                // setAnswerGiven(answer1)
+                                handleAnswerClick(answer1)
                                 }} className="badge">{answer1}</button></p>
                             <p><button onClick={()=>{
-                                setAnswerGiven(answerGiven = answer2)
-                                handleAnswerClick()
+                                // setAnswerGiven(answer2)
+                                handleAnswerClick(answer2)
                                 }} className="badge">{answer2}</button></p>
                             <p><button onClick={()=>{
-                                setAnswerGiven(answerGiven = answer3)
-                                handleAnswerClick()
+                                // setAnswerGiven(answer3)
+                                handleAnswerClick(answer3)
                                 }} className="badge">{answer3}</button></p>
                             <p><button onClick={()=>{
-                                setAnswerGiven(answerGiven = answer4)
-                                handleAnswerClick()
+                                // setAnswerGiven(answer4)
+                                handleAnswerClick(answer4)
                                 }} className="badge">{answer4}</button></p>
                             
                         </div>
@@ -53,6 +57,7 @@ export default function TriviaQuestion({question, category, answer1, answer2, an
                             <h3>{resultComment}</h3>
                             <p>You said<br></br>{answerGiven}</p>
                             <p>The Answer is<br></br>{correct}</p>
+                            {/* <h4>Score from use State = {scoreKeeper}</h4> */}
                         </div>
                     </>
                 }
